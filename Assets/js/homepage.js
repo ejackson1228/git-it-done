@@ -1,6 +1,7 @@
 var repoContainerEl = document.querySelector("#repos-container");
 var repoSearchTerm = document.querySelector("#repo-search-term");
-
+var userFormEl = document.querySelector("#user-form");
+var nameInputEl = document.querySelector("#username");
 
 var getUserRepos = function(user) {
     // format the github api url
@@ -26,20 +27,22 @@ var getUserRepos = function(user) {
   
 getUserRepos();
 
-var userFormEl = document.querySelector("#user-form");
-var nameInputEl = document.querySelector("#username");
+
 
 var formSubmitHandler = function(event) {
+    // prevent broswer from refreshing
     event.preventDefault();
     // get value from input element
     var username = nameInputEl.value.trim();
     if (username) {
         getUserRepos(username);
+        
+        //clear old content
         nameInputEl.value = '';
-    } else { 
+        repoContainerEl.textContent = '';
+    }else{ 
         alert("Please enter a valid GitHub username.");
-    };
-    console.log(event);
+    }
 };
 
 var displayRepos = function (repos, searchTerm) {
